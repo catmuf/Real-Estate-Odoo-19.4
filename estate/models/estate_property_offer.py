@@ -39,9 +39,6 @@ class EstatePropertyOffer(models.Model):
         "The offer price must be strictly positive",
     )
 
-    _sql_constraints = [
-        ("check_price", "CHECK(price > 0)", "The offer price must be strictly positive"),
-    ]
 
     @api.depends("create_date", "validity")
     def _compute_date_deadline(self):

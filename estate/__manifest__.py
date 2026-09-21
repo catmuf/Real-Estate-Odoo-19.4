@@ -3,6 +3,7 @@
     'name': 'Real Estate',
     'version': '1.0',
     'category': 'Real Estate',
+    'author': 'Catmuf',
     'summary': 'Real estate advertisement module',
     'description': """
         Real Estate module developed following the Odoo tutorial.

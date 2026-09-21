@@ -72,10 +72,6 @@ class EstateProperty(models.Model):
         "The selling price must be positive",
     )
 
-    _sql_constraints = [
-        ("check_expected_price", "CHECK(expected_price > 0)", "The expected price must be strictly positive"),
-        ("check_selling_price", "CHECK(selling_price >= 0)", "The selling price must be positive"),
-    ]
 
     @api.depends("living_area", "garden_area")
     def _compute_total_area(self):
