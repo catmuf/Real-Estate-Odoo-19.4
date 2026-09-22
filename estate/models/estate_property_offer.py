@@ -117,3 +117,24 @@ class EstatePropertyOffer(models.Model):
         for record in self:
             record.status = "refused"
         return True
+
+    # -------------------------------------------------------------------------
+    # CRUD OVERRIDES (Create Method)
+    # -------------------------------------------------------------------------
+    @api.model_create_multi
+    def create(self, vals_list):
+        """Overrides create to:
+
+        1. Prevent creating an offer with a price lower than an existing offer on the property.
+        2. Set the property state to 'offer_received'.
+        """
+        for vals in vals_list:
+            property_id = vals.get("property_id")
+            if property_id:
+                property_record = self.env["estate.property"].browse(property_id)
+                for offer in property_record.offer_ids:
+                    if vals.get("price", 0) < offer.price:
+                        raise UserError("The offer must be higher than %.2f" % offer.price)
+                property_record.state = "offer_received"
+        return super().create(vals_list)
+
