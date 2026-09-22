@@ -113,7 +113,7 @@ erDiagram
 ```mermaid
 stateDiagram-v2
     [*] --> New : Record Creation
-    New --> Offer_Received : Offer Created (create hook)
+    New --> Offer_Received : Offer Created via create hook
     Offer_Received --> Offer_Accepted : Salesperson Accepts Offer
     New --> Canceled : Cancel Button
     Offer_Received --> Canceled : Cancel Button

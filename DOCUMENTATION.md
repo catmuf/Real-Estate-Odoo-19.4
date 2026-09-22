@@ -162,7 +162,7 @@ stateDiagram-v2
     New --> Canceled : Action Cancel Clicked
     Offer_Accepted --> Sold : Action Sold Clicked
     Offer_Accepted --> Canceled : Action Cancel Clicked
-    Sold --> [*] : Invoiced (estate_account)
+    Sold --> [*] : Invoiced via estate_account
     Canceled --> [*]
 ```
 
@@ -217,7 +217,7 @@ graph LR
 
     ResUsersExt -.->|Model Inheritance| ResUsers
     UsersViewExt -.->|View Inheritance| BaseViewUsers
-    EstatePropertyExt -.->|Method Extension (action_sold)| EstateProperty
+    EstatePropertyExt -.->|Method Extension: action_sold| EstateProperty
     EstatePropertyExt ==>|Creates Invoice via Command.create| AccountMove
 ```
 
