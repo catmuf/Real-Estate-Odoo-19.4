@@ -48,7 +48,7 @@ erDiagram
     ESTATE_PROPERTY }o--o| RES_PARTNER : "buyer"
     ESTATE_PROPERTY_OFFER }o--|| RES_PARTNER : "bidder"
     ACCOUNT_MOVE ||--o{ ACCOUNT_MOVE_LINE : "invoiced lines"
-    ESTATE_PROPERTY ..> ACCOUNT_MOVE : "creates upon sale"
+    ESTATE_PROPERTY ||--o{ ACCOUNT_MOVE : "creates upon sale (estate_account)"
 
     ESTATE_PROPERTY {
         integer id PK

@@ -86,7 +86,7 @@ erDiagram
     ESTATE_PROPERTY_OFFER }o--|| RES_PARTNER : "bidder (partner_id)"
     ESTATE_PROPERTY_OFFER }o--|| ESTATE_PROPERTY_TYPE : "related type (property_type_id)"
     ACCOUNT_MOVE ||--o{ ACCOUNT_MOVE_LINE : "contains (invoice_line_ids)"
-    ESTATE_PROPERTY ..> ACCOUNT_MOVE : "triggers invoice on sale"
+    ESTATE_PROPERTY ||--o{ ACCOUNT_MOVE : "invoiced via (estate_account)"
 
     ESTATE_PROPERTY {
         int id PK
