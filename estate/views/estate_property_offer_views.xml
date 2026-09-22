@@ -1,5 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- =====================================================================
+         PROPERTY OFFER LIST (TREE) VIEW
+         - editable="bottom": Allows inline row creation and editing without opening a form
+         - decoration-success: Green color for accepted offers
+         - decoration-danger: Red color for refused offers
+         - Action buttons (Accept/Refuse): Disabled/invisible once status is determined
+         - status column: Hidden from view (column_invisible="True") while driving decorations
+         ===================================================================== -->
     <record id="estate_property_offer_view_list" model="ir.ui.view">
         <field name="name">estate.property.offer.list</field>
         <field name="model">estate.property.offer</field>
@@ -16,6 +24,10 @@
         </field>
     </record>
 
+    <!-- =====================================================================
+         PROPERTY OFFER FORM VIEW
+         Detailed view for an offer record
+         ===================================================================== -->
     <record id="estate_property_offer_view_form" model="ir.ui.view">
         <field name="name">estate.property.offer.form</field>
         <field name="model">estate.property.offer</field>
@@ -34,6 +46,11 @@
         </field>
     </record>
 
+    <!-- =====================================================================
+         PROPERTY OFFER WINDOW ACTION
+         Targeted action used by the Property Type stat button:
+         Filters offers matching the active property type (property_type_id == active_id)
+         ===================================================================== -->
     <record id="estate_property_offer_action" model="ir.actions.act_window">
         <field name="name">Property Offers</field>
         <field name="res_model">estate.property.offer</field>

@@ -1,10 +1,21 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- ===================================================================== -->
+    <!-- MENU STRUCTURE                                                        -->
+    <!-- Defines the 3-level menu hierarchy for the Real Estate application.  -->
+    <!-- 1. Root Menu: Displayed in the main apps navbar/launcher.              -->
+    <!-- 2. First-level Categories: "Advertisements" and "Settings".           -->
+    <!-- 3. Actions: Clickable items leading to Properties, Types, and Tags.   -->
+    <!-- ===================================================================== -->
+
+    <!-- Top-level Root Menu -->
     <menuitem id="estate_menu_root" name="Real Estate"/>
 
+    <!-- Advertisements Category & Actions -->
     <menuitem id="estate_first_level_menu" name="Advertisements" parent="estate_menu_root"/>
     <menuitem id="estate_property_menu_action" action="estate_property_action" parent="estate_first_level_menu"/>
 
+    <!-- Settings Category & Actions -->
     <menuitem id="estate_menu_settings" name="Settings" parent="estate_menu_root"/>
     <menuitem id="estate_property_type_menu_action" action="estate_property_type_action" parent="estate_menu_settings"/>
     <menuitem id="estate_property_tag_menu_action" action="estate_property_tag_action" parent="estate_menu_settings"/>

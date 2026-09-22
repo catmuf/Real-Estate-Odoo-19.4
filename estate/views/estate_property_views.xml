@@ -1,5 +1,12 @@
 <?xml version="1.0" encoding="utf-8"?>
 <odoo>
+    <!-- =====================================================================
+         PROPERTY LIST (TREE) VIEW
+         Displays tabular overview of properties with conditional text/row styling:
+         - decoration-success: green for received/accepted offers
+         - decoration-bf: bold text for accepted offer
+         - decoration-muted: muted/gray text for sold properties
+         ===================================================================== -->
     <record id="estate_property_view_list" model="ir.ui.view">
         <field name="name">estate.property.list</field>
         <field name="model">estate.property</field>
@@ -19,14 +26,22 @@
         </field>
     </record>
 
+    <!-- =====================================================================
+         PROPERTY FORM VIEW
+         Detailed view for creating and editing single property records:
+         - Header: Action buttons (Sold, Cancel) with conditional visibility and statusbar
+         - Sheet: Title, tags, pricing info, and notebook tabs (Description, Offers, Other Info)
+         ===================================================================== -->
     <record id="estate_property_view_form" model="ir.ui.view">
         <field name="name">estate.property.form</field>
         <field name="model">estate.property</field>
         <field name="arch" type="xml">
             <form string="Property">
                 <header>
+                    <!-- Action buttons hidden dynamically based on property state -->
                     <button name="action_sold" type="object" string="Sold" invisible="state in ('sold', 'canceled')"/>
                     <button name="action_cancel" type="object" string="Cancel" invisible="state in ('sold', 'canceled')"/>
+                    <!-- Interactive status progression bar -->
                     <field name="state" widget="statusbar" statusbar_visible="new,offer_received,offer_accepted,sold"/>
                 </header>
                 <sheet>
@@ -57,12 +72,14 @@
                                 <field name="facades"/>
                                 <field name="garage"/>
                                 <field name="garden"/>
+                                <!-- Garden area and orientation only displayed when garden is True -->
                                 <field name="garden_area" invisible="not garden"/>
                                 <field name="garden_orientation" invisible="not garden"/>
                                 <field name="total_area"/>
                             </group>
                         </page>
                         <page string="Offers">
+                            <!-- Offers table made readonly once an offer is accepted or property is sold/canceled -->
                             <field name="offer_ids" readonly="state in ('offer_accepted', 'sold', 'canceled')"/>
                         </page>
                         <page string="Other Info">
@@ -77,6 +94,14 @@
         </field>
     </record>
 
+    <!-- =====================================================================
+         PROPERTY SEARCH VIEW
+         Filters and search shortcuts:
+         - Quick search fields (title, property type, postcode, etc.)
+         - Custom filter_domain for living area (greater than or equal to input value)
+         - Predefined filter for 'Available' properties (state is new or offer_received)
+         - Group By Postcode option
+         ===================================================================== -->
     <record id="estate_property_view_search" model="ir.ui.view">
         <field name="name">estate.property.search</field>
         <field name="model">estate.property</field>
@@ -98,6 +123,10 @@
         </field>
     </record>
 
+    <!-- =====================================================================
+         PROPERTY WINDOW ACTION
+         Opens property listings in list and form views, with 'Available' filter active by default
+         ===================================================================== -->
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
