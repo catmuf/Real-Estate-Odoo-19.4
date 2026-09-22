@@ -96,6 +96,47 @@
     </record>
 
     <!-- =====================================================================
+         PROPERTY KANBAN VIEW
+         Card-based view grouping properties by property type:
+         - default_group_by: organizes cards into columns by property_type_id
+         - records_draggable="0": disables dragging cards across columns
+         - Conditional price display:
+           * Best price shown only when offer_received
+           * Selling price shown only when offer_accepted
+         - Visual tag labels with color indices
+         ===================================================================== -->
+    <record id="estate_property_view_kanban" model="ir.ui.view">
+        <field name="name">estate.property.kanban</field>
+        <field name="model">estate.property</field>
+        <field name="arch" type="xml">
+            <kanban default_group_by="property_type_id" records_draggable="0">
+                <field name="state"/>
+                <templates>
+                    <t t-name="card">
+                        <div>
+                            <strong>
+                                <field name="name"/>
+                            </strong>
+                        </div>
+                        <div>
+                            Expected Price: <field name="expected_price"/>
+                        </div>
+                        <div t-if="record.state.raw_value == 'offer_received'">
+                            Best Price: <field name="best_price"/>
+                        </div>
+                        <div t-if="record.state.raw_value == 'offer_accepted'">
+                            Selling Price: <field name="selling_price"/>
+                        </div>
+                        <div>
+                            <field name="tag_ids" widget="many2many_tags" options="{'color_field': 'color'}"/>
+                        </div>
+                    </t>
+                </templates>
+            </kanban>
+        </field>
+    </record>
+
+    <!-- =====================================================================
          PROPERTY SEARCH VIEW
          Filters and search shortcuts:
          - Quick search fields (title, property type, postcode, etc.)
@@ -126,12 +167,12 @@
 
     <!-- =====================================================================
          PROPERTY WINDOW ACTION
-         Opens property listings in list and form views, with 'Available' filter active by default
+         Opens property listings in kanban, list, and form views, with 'Available' filter active by default
          ===================================================================== -->
     <record id="estate_property_action" model="ir.actions.act_window">
         <field name="name">Properties</field>
         <field name="res_model">estate.property</field>
-        <field name="view_mode">list,form</field>
+        <field name="view_mode">kanban,list,form</field>
         <field name="context">{'search_default_available': True}</field>
     </record>
 </odoo>
